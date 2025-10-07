@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+
+  --color-pivot: rgb(0, 230, 0);
+  --color-static: rgb(0, 27, 240);
+}
