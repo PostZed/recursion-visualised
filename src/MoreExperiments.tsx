@@ -1,12 +1,11 @@
-import { createRoot } from "react-dom/client";
-import ItemContainer from "./components/ItemContainer";
-import { getCurrentPivot } from "./lib/recursion";
-import "./index.css"
-import CombinationContainer from "./components/CombinationContainer";
 import type { JSX } from "react";
+import CombinationContainer from "./components/CombinationContainer";
+import { createRoot } from "react-dom/client";
+import TransformContainer from "./components/TransformContainer";
+import "./index.css"
 
-const listPaneRoot = createRoot(document.getElementById("list-pane")!)
-
+const listPaneRoot = createRoot(document.getElementById("list-pane")!);
+let transformNodes: JSX.Element[] = []
 
 export function findCombinationsForOneOrder(items: JSX.Element[], pyramid: Array<Array<JSX.Element>>) {
 
@@ -15,7 +14,7 @@ export function findCombinationsForOneOrder(items: JSX.Element[], pyramid: Array
     let displacerIndex = 0;
     const displacer = items[displacerIndex]
 
-    const combinations: Array<Array<T>> = [];
+    const combinations: Array<Array<JSX.Element>> = [];
 
     for (let i = 0; i < items.length; i++) {
         const displacedIndex = i
@@ -44,10 +43,20 @@ export async function findAllCombinations(items: JSX.Element[], pyramid: Array<A
 
     if (items.length === 2) {
         const c = findCombinationsForOneOrder(items, pyramid)
-        listPaneRoot.render(<CombinationContainer list={c} partitionCount={1} />)
-        await new Promise((res, _) => {
-            setTimeout(res, 1000 * (c.length + 1));
-        })
+
+        for (let i = 0; i < c.length; i++) {
+            const list = c[i]
+            const listMinusOne = [items[0]]
+            const currentTransformNode =
+                <TransformContainer current={listMinusOne} next={list} pivotIndex={i} />
+            //  transformNodes.push(currentTransformNode);
+            transformNodes = [...transformNodes, currentTransformNode]
+            listPaneRoot.render(transformNodes)
+            await new Promise((res, _) => {
+                setTimeout(res, 2000);
+            })
+        }
+
         return c;
     }
 
@@ -71,37 +80,30 @@ export async function findAllCombinations(items: JSX.Element[], pyramid: Array<A
                 withLastItemAdded.push(eachCombination);
             }
         }
+        transformNodes = [];
+        for (let i = 0; i < withLastItemAdded!.length; i++) {
+            const list = withLastItemAdded[i];
+            const partitionSize = withLastItemAdded.length / combinations!.length
+            const listMinusOne = combinations![Math.floor(i / partitionSize)];
+            const currentTransformNode =
+                <TransformContainer
+                    current={listMinusOne}
+                    next={list}
+                    key={list}
+                    pivotIndex={Math.floor(i % partitionSize)} />
+            // transformNodes.push(currentTransformNode)
+            transformNodes = [...transformNodes, currentTransformNode]
+            listPaneRoot.render(transformNodes);
+            await new Promise((res, _) => {
+                setTimeout(res, 2000);
+            })
+        }
 
 
-        listPaneRoot.render(<CombinationContainer
-            list={withLastItemAdded}
-            partitionCount={combinations?.length!}
-            key={length} />)
-        await new Promise((res, _) => {
-            setTimeout(res, 1000 * (withLastItemAdded.length + 1));
-        })
 
         return withLastItemAdded;
     }
 }
 
-findAllCombinations(["Zee", "Schwerzli", "Monsty", "Darcy"], [])
+findAllCombinations(["Zee", "Schwerzli", "Monsty", "Darcy"], []);
 
-// const pyramid: Array<Array<string>> = []
-// findAllCombinations(["Zee", "Schwerzli", "Monsty"], pyramid);
-
-// pyramid.forEach((arr: Array<string>, index: number) => {
-//     new Promise<void>((resolve, _) => {
-//         setTimeout(() => {
-//             const pivot = getCurrentPivot(index, pyramid)
-//             root.render(<ItemContainer items={arr} pivot={pivot} />)
-//             resolve()
-//         }, 1000 * index);
-//     })
-// });
-
-// const allNodes = pyramid.map((arr, index) => {
-//     return <ItemContainer items={arr} pivot={getCurrentPivot(index, pyramid)} />
-// });
-
-// root.render(allNodes)

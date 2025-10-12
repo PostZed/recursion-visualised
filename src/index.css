@@ -4,4 +4,20 @@
 
   --color-pivot: rgb(0, 230, 0);
   --color-static: rgb(0, 27, 240);
+
+  --animate-grow: grow 1000ms ease-out;
+
+  @keyframes grow {
+    0% {
+      width: 0;
+      height: 0
+    }
+
+    100% {
+      width: auto;
+      height: auto;
+    }
+
+  }
+
 }

@@ -89,3 +89,20 @@ export function printAllCombinations(items: string[]) {
 
 }
 
+export function getCurrentPivot<T>(pyramidPosition: number, pyramid: T[][]) {
+    //let arrayOfArrays: Array<Array<Array<T>>> = []
+    let endIndex = 2;
+    let startIndex = 0;
+
+    while (!(pyramidPosition >= startIndex && pyramidPosition < endIndex)) {
+        // const slice = pyramid.slice(startIndex, endIndex);
+        // arrayOfArrays.push(slice)
+        startIndex = endIndex
+        endIndex = endIndex + (endIndex * (endIndex + 1))
+    }
+
+    // return arrayOfArrays[arrayOfArrays.length - 1][0][0];
+    return pyramid[startIndex][0];
+
+}
+
