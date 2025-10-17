@@ -5,19 +5,19 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>recursion-visualised</title>
+  <title>Recursion Visualised</title>
 </head>
 
 <body>
-  <div id="root">
-    <div id="layout">
-      <div id="current-list-pane"></div>
-      <div id="extras-pane"></div>
-      <div id="list-pane"></div>
-      <h3 id="message"></h3>
-    </div>
+
+  <div id="root" class="grid grid-cols-1 grid-rows-4 md:grid-cols-4 md:grid-rows-1
+   shadow mx-auto w-full md:w-[70%] h-screen overflow-y-hidden">
+    <div id="list-pane" class="p-1 row-span-3 col-span-1 md:row-span-1 md:col-span-3 overflow-y-hidden"></div>
+    <div id="message" class="p-1 row-span-1 col-span-1 md:row-span-1 md:col-span-1 overflow-y-hidden"></div>
+    <div id="desc-root" class="col-span-1 md:col-span-4"></div>
   </div>
-  <script type="module" src="/src/MoreExperiments.tsx"></script>
+
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>
