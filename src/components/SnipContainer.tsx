@@ -31,7 +31,7 @@ export default function SnipContainer({
         }
     }, [])
 
-    return <div className="flex items-center w-fit mx-auto h-[100%]">
+    return <div className="flex items-center w-fit mx-auto overflow-auto">
         {sequence.map((item, index) => {
             return <ItemCard
                 item={item}

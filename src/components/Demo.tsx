@@ -4,7 +4,8 @@ import { getSnipMessage } from "../lib/commentary";
 import Commentary from "./Commentary";
 import SnipContainer from "./SnipContainer";
 import { DemoFinished } from "../lib/custom-event";
-import { listRoot, messageRoot } from "../root";
+import { mainRoot } from "../root";
+import StandardLayout from "./StandardLayout";
 
 
 export function findCombinationsForOneOrder(items: JSX.Element[], pyramid: JSX.Element[][]) {
@@ -47,10 +48,8 @@ export async function findAllCombinations(
         const baseCaseResult = findCombinationsForOneOrder(items, pyramid)
 
         await showGroupedPanes({
-            root: listRoot,
             itemsWithoutPivot: baseCaseResult,
             itemsWithPivot: baseCaseResult,
-            messageRoot: messageRoot
         })
         return baseCaseResult;
     }
@@ -62,8 +61,12 @@ export async function findAllCombinations(
 
         const withLastItemAdded: JSX.Element[][] = []
 
-        messageRoot.render(<Commentary message={getSnipMessage(items.length)} />)
-        listRoot.render(<SnipContainer sequence={items} key={items.length} />)
+        // messageRoot.render(<Commentary message={getSnipMessage(items.length)} />)
+        // listRoot.render(<SnipContainer sequence={items} key={items.length} />)
+        mainRoot.render(<StandardLayout
+            message={<Commentary message={getSnipMessage(items.length)} />}
+            sequence={<SnipContainer sequence={items} key={items.length} />}
+        />)
         await waitForPaneCompletion("snipSequence");
 
         const combinations = await findAllCombinations(itemsMinusOne, pyramid, total)
@@ -83,8 +86,6 @@ export async function findAllCombinations(
         await showGroupedPanes({
             itemsWithoutPivot: combinations!,
             itemsWithPivot: withLastItemAdded,
-            root: listRoot,
-            messageRoot: messageRoot
         })
 
         if (withLastItemAdded.length === total) {
@@ -94,7 +95,7 @@ export async function findAllCombinations(
     }
 }
 
-export function factorial(n: number) {
+export function factorial(n: number): number {
     if (n === 1)
         return 1;
     if (n === 0)

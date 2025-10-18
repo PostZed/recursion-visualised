@@ -3,7 +3,9 @@ export type CommentaryProps = {
 }
 
 export default function Commentary({ message }: CommentaryProps) {
-    return <h3 className="h-[100%]">
-        {message}
-    </h3>
+    return <div className="h-full overflow-hidden">
+        <h3 className="overflow-auto">
+            {message}
+        </h3>
+    </div>
 }

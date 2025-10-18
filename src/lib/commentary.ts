@@ -1,5 +1,5 @@
 export function getSnipMessage(position: number) {
-    return `Removing item at position ${position}.`;
+    return `Not yet at the base case; Removing item at position ${position}.`;
 }
 
 export function getBaseCaseMessage() {

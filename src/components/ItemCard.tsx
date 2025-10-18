@@ -21,7 +21,7 @@ export default function ItemCard<T>({
 
     const myColor = isPivot && shouldHighlightPivot ? `bg-pivot ` : 'bg-static'
     const myEffect = isPivot ? effect : ""
-    return <div className={`m-1 rounded-lg border px-1 ${myColor} ${myEffect}`}
+    return <div className={`m-1 border-none rounded-lg p-2 ${myColor} ${myEffect}`}
     >
         {renderMethod(item)}
     </div>

@@ -30,7 +30,7 @@ export default function AddItems({ items, size, appearanceInterval = 1000 }: Add
         }
     }, [])
 
-    return <div className="mx-auto w-fit overflow-y-auto h-[100%]">
+    return <div className="mx-auto w-fit overflow-auto max-h-full">
         {partitionedArray.map((sequence, index) => {
             if (index <= position) {
                 return <ItemContainer items={sequence} pivot={null} extraStyles="" />
@@ -51,7 +51,7 @@ export default function AddItems({ items, size, appearanceInterval = 1000 }: Add
 export function addToPartitions(items: JSX.Element[][], size: number) {
     const partitionSize = size / items.length;
     let partitionedArray: Array<Array<JSX.Element>> = Array.from({ length: size },
-        (_, i) => [""]
+        (_, i) => [`${i}`]
     )
         ;
 

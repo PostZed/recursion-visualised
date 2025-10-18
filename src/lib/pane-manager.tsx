@@ -1,36 +1,33 @@
-import type { Root } from "react-dom/client";
+
 import type { PaneLoadedEvent, PaneType } from "./custom-event";
 import AddItems from "../components/AddItems";
-import DivisionContainer from "../components/DivisionContainer";
 import TransformContainer from "../components/TransformContainer";
 import type { JSX } from "react";
 import Commentary from "../components/Commentary";
-import { getBaseCaseMessage } from "./commentary";
+import { mainRoot } from "../root";
+import StandardLayout from "../components/StandardLayout";
 
 export type PaneManagerProps = {
     itemsWithoutPivot: Array<Array<JSX.Element>>,
     itemsWithPivot: Array<Array<JSX.Element>>
 }
 
-export type GroupPaneProps = PaneManagerProps & { root: Root, messageRoot: Root }
+export type GroupPaneProps = PaneManagerProps;
 
 export async function showGroupedPanes({
     itemsWithoutPivot,
     itemsWithPivot,
-    root,
-    messageRoot
 }: GroupPaneProps) {
 
-    const events: Exclude<PaneType, "snipSequence">[] = [
-        //  "multiplyDivisions",
+    const events: Extract<PaneType, "addItems" | "transformItems">[] = [
         "addItems",
         "transformItems"
     ]
+
     const key = itemsWithoutPivot.length;
     const time = 4000;
-    const messageTime = itemsWithPivot.length === 2 ? 5000 : time / itemsWithPivot.length
+    const messageTime = itemsWithPivot.length === 2 ? 2000 : time / itemsWithPivot.length
     const nodes = [
-        //  <DivisionContainer divisionCount={itemsWithPivot.length} key={key} dropTime={200} />,
         <AddItems items={itemsWithoutPivot} appearanceInterval={messageTime} size={itemsWithPivot.length} key={key} />,
         <TransformContainer newSequences={itemsWithPivot} pivotAppearanceTime={500} key={key} />
     ]
@@ -38,7 +35,7 @@ export async function showGroupedPanes({
     const isBaseCase = itemsWithPivot.length === 2
     const baseCaseMsg = `Array length is equal to 2. Base case reached! Return 2 unique arrangements that form the core of the \
     recursive return values.`
-    const standardMessage = `Put the results, that is ${itemsWithoutPivot.length} unique combinations in an array of length ${itemsWithPivot.length}. `
+    const standardMessage = `Put the results, that is, ${itemsWithoutPivot.length} unique combinations, in an array of length ${itemsWithPivot.length}. `
     const message = isBaseCase ? baseCaseMsg : standardMessage;
     const messages = [
         message,
@@ -49,8 +46,10 @@ export async function showGroupedPanes({
         const node = nodes[i]
         const name = events[i]
 
-        messageRoot.render(<Commentary message={messages[i]} />)
-        root.render(node);
+        mainRoot.render(<StandardLayout
+            message={<Commentary message={messages[i]} />}
+            sequence={node}
+        />)
         await waitForPaneCompletion(name)
     }
 

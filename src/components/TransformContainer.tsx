@@ -29,7 +29,7 @@ export default function TransformContainer({ newSequences, pivotAppearanceTime =
         }
     }, [])
 
-    return <div className="w-fit mx-auto overflow-auto h-[100%]">
+    return <div className="w-fit mx-auto overflow-auto max-h-full">
         {newSequences.map((newSequence, index) => {
             if (position === -1)
                 return null

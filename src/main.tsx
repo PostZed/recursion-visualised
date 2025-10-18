@@ -1,18 +1,22 @@
-
 import "./index.css";
 import Description from "./components/Description";
-import { mainRoot, descRoot, listRoot, messageRoot } from "./root";
-import { createRoot } from "react-dom/client";
+import { mainRoot } from "./root";
+import AnimationDone from "./components/AnimationDone";
 
-// let descRoot = createRoot(document.getElementById("desc-root")!);
-// let mainRoot = createRoot(document.getElementById("root")!);
 
-window.addEventListener("demo-finished", () => {
-    // mainRoot.unmount();
-    descRoot.render(<Description />);
+window.addEventListener("demo-finished", async () => {
+
+    await new Promise<void>((res, _) => {
+        mainRoot.render(<AnimationDone />);
+        setTimeout(() => {
+            res()
+        }, 2000);
+    })
+
+    mainRoot.render(<Description />);
 });
 
-descRoot.render(<>
+mainRoot.render(<>
     <Description />
 </>)
 
