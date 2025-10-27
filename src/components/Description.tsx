@@ -18,9 +18,10 @@ export default function Description() {
         <div>
             <p> Understand how recursion works by viewing this simple demonstration using HTML, CSS, JavaScript and React.</p>
             <p>The task is simple: Find all of the combinations of the members of a set. For example,
-                find all the combinations of <code>[Red,Orange,Yellow]</code>.  </p>
+                find all the combinations of <code>[One, Two, Three ]</code>.  </p>
             <p>The number of combinations is equal to factorial of the size of the set.</p>
-            <p>Click <span>Start</span> to start the recursive algorithm.</p>
+            <p>This demonstration uses the set <code>[Red, Orange, Yellow, Green]</code>.</p>
+            <p>Click <span>Start</span> to start the demonstation.</p>
             <button className="border-none text-[20px]  bg-blue-200 rounded-lg hover:bg-blue-300 hover:scale-110 block p-1 mx-auto"
                 onClick={handleClick}>Start</button>
         </div>

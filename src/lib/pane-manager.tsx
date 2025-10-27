@@ -60,8 +60,10 @@ let formerListener: ((e: PaneLoadedEvent) => void) | null = null
 
 export async function waitForPaneCompletion(paneName: PaneType) {
     return new Promise<void>((res, _) => {
-        if (formerListener)
+        if (formerListener) {
+            //@ts-expect-error 
             window.removeEventListener("paneloaded", formerListener);
+        }
 
         function handlePaneLoaded(event: PaneLoadedEvent) {
             if (event.getPaneType() === paneName) {
@@ -69,7 +71,7 @@ export async function waitForPaneCompletion(paneName: PaneType) {
             }
         }
 
-
+        //@ts-expect-error 
         window.addEventListener("paneloaded", handlePaneLoaded);
     });
 }

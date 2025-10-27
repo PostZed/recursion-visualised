@@ -12,4 +12,5 @@ export default defineConfig({
     }),
     tailwindcss()
   ],
+  base: '/recursion-visualised/'
 })

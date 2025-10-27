@@ -50,6 +50,7 @@ export default function AddItems({ items, size, appearanceInterval = 1000 }: Add
  */
 export function addToPartitions(items: JSX.Element[][], size: number) {
     const partitionSize = size / items.length;
+    //@ts-expect-error
     let partitionedArray: Array<Array<JSX.Element>> = Array.from({ length: size },
         (_, i) => [`${i}`]
     )

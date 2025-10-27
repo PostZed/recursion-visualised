@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState, type JSX } from "react"
-import { addToPartitions } from "./AddItems"
+import { useEffect, useState, type JSX } from "react"
 import ItemContainer from "./ItemContainer";
 import { PaneLoadedEvent } from "../lib/custom-event";
 

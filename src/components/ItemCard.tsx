@@ -11,7 +11,6 @@ export type ItemCardProps<T> = {
 
 export default function ItemCard<T>({
     item,
-    position,
     effect,
     isPivot,
     renderMethod,
