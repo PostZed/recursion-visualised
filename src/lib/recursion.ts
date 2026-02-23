@@ -1,4 +1,9 @@
 /**
+ * This module contains the core recursive alogorithms that are used in the project, albeit in simpler
+ * form, without the rendering logic. 
+ */
+
+/**
  * Find all the combinations possible for a list of items that follow a particular order.
  * E.g all the combinations of an array [a,b,c]
  * The function will move a's index, but b and c will always be in the same position 
@@ -58,7 +63,7 @@ export function findAllCombinations<T>(items: T[], pyramid: Array<Array<T>>) {
         const combinations = findAllCombinations(itemsMinusOne, pyramid)
 
         for (let combination of combinations!) {
-            /*We must copy combinations into a new variable. It shares a pointer with the items in pyramid
+            /*We must copy combination into a new variable. It shares a pointer with the items in pyramid
             and mutating it changes items in pyramid, which we DON'T want to do.
             */
             const ersatz = Array.from(combination)
@@ -74,6 +79,10 @@ export function findAllCombinations<T>(items: T[], pyramid: Array<Array<T>>) {
 }
 
 
+/**
+ * Print the results of findAllCombinations
+ * @param items 
+ */
 export function printAllCombinations(items: string[]) {
     let str = ""
     const pyramid: string[][] = []
@@ -89,6 +98,13 @@ export function printAllCombinations(items: string[]) {
 
 }
 
+/**
+ * Vestigial function whose use I no longer know, and with as many comments as lines of code.
+ * May need for debugging???
+ * @param pyramidPosition 
+ * @param pyramid 
+ * @returns 
+ */
 export function getCurrentPivot<T>(pyramidPosition: number, pyramid: T[][]) {
     //let arrayOfArrays: Array<Array<Array<T>>> = []
     let endIndex = 2;

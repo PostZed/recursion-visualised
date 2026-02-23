@@ -7,6 +7,16 @@ export type SnipContainerProps = {
     snipAfter?: number
 }
 
+
+/**
+ * This component is responsible for the "snipping" of the sequence, which is the animation 
+ * that occurs when the pivot is removed from the partitions in [TransformContainer.tsx]. 
+ * It takes in a sequence and a time after which the snip should occur. After the specified time,
+ * it causes the last item in the sequence to animate - to shrink and disappear.
+ * 
+ * @param param0 
+ * @returns 
+ */
 export default function SnipContainer({
     sequence,
     snipAfter = 1000
@@ -18,6 +28,10 @@ export default function SnipContainer({
     useEffect(() => {
         let nestedTimeout: number;
 
+        /**
+         * Set a timeout to start the snip animation after the specified time, and another timeout 
+         * to dispatch a custom event to return control to findAllCombinations after the animation is done.
+         */
         const timeout = setTimeout(() => {
             setCanBeSnipped(true);
             nestedTimeout = setTimeout(() => {

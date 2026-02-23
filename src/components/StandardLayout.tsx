@@ -5,6 +5,11 @@ export type StandardLayoutProps = {
     message: JSX.Element
 }
 
+/**
+ * 
+ * @param obj Contains the nodes for the message and the specific pane we're rendering.
+ * @returns 
+ */
 export default function StandardLayout({ message, sequence }: StandardLayoutProps) {
 
     useLayoutEffect(() => {
